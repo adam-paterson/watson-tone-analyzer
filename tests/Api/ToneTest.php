@@ -77,7 +77,10 @@ class ToneTest extends TestCase
 
         $tone = new Tone($this->httpClient, $this->hydrator, $this->requestBuilder);
 
-        $response = $tone->analyze('text', ['content_language' => 'en', 'accept_language' => 'en']);
+        $response = $tone->analyze(
+            'text',
+            ['content_language' => 'en', 'accept_language' => 'en', 'learning_opt_out' => true]
+        );
 
         $tones = $response->getDocumentAnalysis()->getTones();
 

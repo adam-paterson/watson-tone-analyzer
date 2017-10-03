@@ -44,6 +44,10 @@ class Tone extends AbstractApi
             $headers['Accept-Language'] = $params['accept_language'];
         }
 
+        if (isset($params['learning_opt_out'])) {
+            $headers['X-Watson-Learning-Opt-Out'] = true;
+        }
+
         $response = $this->get('/api/v3/tone', $params, $headers);
 
         if ($response->getStatusCode() !== 200) {
