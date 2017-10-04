@@ -26,8 +26,6 @@ class Tone extends AbstractApi
     {
         $headers = [];
 
-        $params['text'] = $text;
-
         if (!isset($params['version'])) {
             $params['version'] = \date('Y-m-d');
         }
@@ -48,12 +46,57 @@ class Tone extends AbstractApi
             $headers['X-Watson-Learning-Opt-Out'] = true;
         }
 
-        $response = $this->get('/api/v3/tone', $params, $headers);
+        if (isset($params['is_html'])) {
+            unset($params['is_html']);
+            $response = $this->analyzeHtml($text, $params, $headers);
+        } elseif (json_decode($text) && json_last_error() === JSON_ERROR_NONE) {
+            $response = $this->analyzeJson($text, $params, $headers);
+        } else {
+            $response = $this->get('/api/v3/tone', $params, $headers);
+        }
 
         if ($response->getStatusCode() !== 200) {
             $this->handleErrors($response);
         }
 
         return $this->hydrator->hydrate($response, ToneAnalysis::class);
+    }
+
+    /**
+     * Analyze HTML
+     *
+     * @param string $text
+     * @param array  $params
+     * @param array  $headers
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     *
+     * @throws \Http\Client\Exception
+     * @throws \Exception
+     */
+    public function analyzeHtml($text, array $params = [], array $headers = [])
+    {
+        $headers['Content-Type'] = 'text/html';
+
+        return $this->post('/api/v3/tone' . '?' . http_build_query($params), ['text' => $text], $headers);
+    }
+
+    /**
+     * Analyze JSON
+     *
+     * @param string $text
+     * @param array  $params
+     * @param array  $headers
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     *
+     * @throws \Http\Client\Exception
+     * @throws \Exception
+     */
+    public function analyzeJson($text, array $params = [], array $headers = [])
+    {
+        $headers['Content-Type'] = 'application/json';
+
+        return $this->post('/api/v3/tone' . '?' . http_build_query($params), ['text' => $text], $headers);
     }
 }

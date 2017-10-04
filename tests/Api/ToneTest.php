@@ -173,4 +173,38 @@ class ToneTest extends TestCase
 
         $this->assertNotEmpty($tones);
     }
+
+    public function testAnalyzeHtml()
+    {
+        $rawResponse = '{"document_tone": {"tones": [{"score": 0.6165,"tone_id": "sadness","tone_name": "Sadness"}]}}';
+
+        $this->httpClient->shouldReceive('sendRequest')->once()->andReturnUsing(function () use ($rawResponse) {
+            return new Response(200, ['Content-Type' => 'application/json'], $rawResponse);
+        });
+
+        $tone = new Tone($this->httpClient, $this->hydrator, $this->requestBuilder);
+
+        $response = $tone->analyze('<div>Some HTML to test</div>', ['is_html' => true]);
+
+        $tones = $response->getDocumentAnalysis()->getTones();
+
+        $this->assertNotEmpty($tones);
+    }
+
+    public function testAnalyzeJson()
+    {
+        $rawResponse = '{"document_tone": {"tones": [{"score": 0.6165,"tone_id": "sadness","tone_name": "Sadness"}]}}';
+
+        $this->httpClient->shouldReceive('sendRequest')->once()->andReturnUsing(function () use ($rawResponse) {
+            return new Response(200, ['Content-Type' => 'application/json'], $rawResponse);
+        });
+
+        $tone = new Tone($this->httpClient, $this->hydrator, $this->requestBuilder);
+
+        $response = $tone->analyze('{"text": "Some text to analyze"}');
+
+        $tones = $response->getDocumentAnalysis()->getTones();
+
+        $this->assertNotEmpty($tones);
+    }
 }
