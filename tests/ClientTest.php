@@ -37,4 +37,11 @@ class ClientTest extends TestCase
 
         $this->assertInstanceOf(Tone::class, $client->tone());
     }
+
+    public function testToneChat()
+    {
+        $client = Client::create('adam', 'password');
+
+        $this->assertInstanceOf(ToneChat::class, $client->toneChat());
+    }
 }

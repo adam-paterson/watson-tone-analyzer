@@ -81,4 +81,14 @@ final class Client
     {
         return new Api\Tone($this->httpClient, $this->hydrator, $this->requestBuilder);
     }
+
+    /**
+     * Create tone chat api request
+     *
+     * @return \IBM\Watson\ToneAnalyzer\Api\ToneChat
+     */
+    public function toneChat()
+    {
+        return new Api\ToneChat($this->httpClient, $this->hydrator, $this->requestBuilder);
+    }
 }
