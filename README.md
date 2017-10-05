@@ -63,6 +63,38 @@ foreach ($sentenceAnalysis->getSentences() as $sentence) {
 }
 ```
 
+### Customer Engagement Tone
+```php
+use IBM\Watson\ToneAnalyzer\Client as ToneAnalyzer;
+ 
+$toneAnalyzer = ToneAnalyzer::create('username', 'password');
+ 
+$data = <<<JSON
+{
+    "utterances": [
+        {
+            "text": "Someone sent me a postcard picture of the earth. On the back it said, "Wish you were here.",
+            "user": "customer"
+        },
+        {
+            "text": "Last night I played a blank tape at full blast. The mime next door went nuts.",
+            "user": "agent"
+        }
+    ]
+}
+JSON;
+ 
+$analysis = $toneAnalyzer->toneChat()->analyze($json);
+ 
+foreach ($analysis->getUtterances() as $utterance) {
+    echo $utterance->getId() . ': ' . $utterance->getText() . PHP_EOL;
+
+    foreach ($utterance->getTones() as $tone) {
+        echo $tone->getName() . ': ' . $tone->getScore() . PHP_EOL;
+    }
+}
+```
+
 ### Configuring custom client
 ```php
 use IBM\Watson\ToneAnalyzer\Client as ToneAnalyzer;
