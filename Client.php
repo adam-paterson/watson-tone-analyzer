@@ -2,53 +2,15 @@
 
 namespace IBM\Watson\ToneAnalyzer;
 
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
+use IBM\Watson\Common\AbstractClient;
 use IBM\Watson\Common\HttpClient\Builder;
-use IBM\Watson\Common\Hydrator\HydratorInterface;
-use IBM\Watson\Common\Hydrator\ModelHydrator;
-use IBM\Watson\Common\RequestBuilder;
 
-final class Client
+final class Client extends AbstractClient
 {
     /**
      * Base tone analyzer uri
      */
     const BASE_URI = 'https://gateway.watsonplatform.net/tone-analyzer';
-
-    /**
-     * @var \Http\Client\HttpClient
-     */
-    private $httpClient;
-
-    /**
-     * @var \IBM\Watson\Common\Hydrator\ModelHydrator
-     */
-    private $hydrator;
-
-    /**
-     * @var \IBM\Watson\Common\RequestBuilder
-     */
-    private $requestBuilder;
-
-    /**
-     * Client constructor.
-     *
-     * @param \Http\Client\HttpClient|null                       $httpClient
-     * @param \IBM\Watson\Common\Hydrator\HydratorInterface|null $hydrator
-     * @param \IBM\Watson\Common\RequestBuilder|null             $requestBuilder
-     *
-     * @throws \Http\Discovery\Exception\NotFoundException
-     */
-    public function __construct(
-        HttpClient $httpClient = null,
-        HydratorInterface $hydrator = null,
-        RequestBuilder $requestBuilder = null
-    ) {
-        $this->httpClient = $httpClient ?: HttpClientDiscovery::find();
-        $this->hydrator = $hydrator ?: new ModelHydrator;
-        $this->requestBuilder = $requestBuilder ?: new RequestBuilder;
-    }
 
     /**
      * Create tone analyzer client with username and password
