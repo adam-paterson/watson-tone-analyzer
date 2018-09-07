@@ -1,0 +1,5 @@
+{
+  "code":400,
+  "sub_code":"C00003",
+  "error":"Input text exceeded API limit of 131,072 bytes"
+}
