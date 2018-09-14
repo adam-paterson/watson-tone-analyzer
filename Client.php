@@ -52,4 +52,12 @@ class Client extends AbstractClient
     {
         return new Api\Tone($this->httpClient, $this->hydrator, $this->requestBuilder);
     }
+
+    /**
+     * @return \IBM\Watson\ToneAnalyzer\Api\ToneChat
+     */
+    public function toneChat()
+    {
+        return new Api\ToneChat($this->httpClient, $this->hydrator, $this->requestBuilder);
+    }
 }

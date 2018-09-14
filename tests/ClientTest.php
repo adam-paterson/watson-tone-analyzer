@@ -6,6 +6,7 @@ use Http\Client\HttpClient;
 use IBM\Watson\Common\Hydrator\HydratorInterface;
 use IBM\Watson\Common\RequestBuilder;
 use IBM\Watson\ToneAnalyzer\Api\Tone;
+use IBM\Watson\ToneAnalyzer\Api\ToneChat;
 use IBM\Watson\ToneAnalyzer\Client;
 use PHPUnit\Framework\TestCase;
 use Mockery as m;
@@ -34,5 +35,12 @@ class ClientTest extends TestCase
         $client = new Client($this->httpClient, $this->hydrator, $this->requestBuilder);
 
         $this->assertInstanceOf(Tone::class, $client->tone());
+    }
+
+    public function testEngagement()
+    {
+        $client = new Client($this->httpClient, $this->hydrator, $this->requestBuilder);
+
+        $this->assertInstanceOf(ToneChat::class, $client->toneChat());
     }
 }

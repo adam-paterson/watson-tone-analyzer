@@ -3,6 +3,7 @@
 namespace IBM\Watson\ToneAnalyzer\Api;
 
 use IBM\Watson\Common\Api\AbstractApi;
+use IBM\Watson\ToneAnalyzer\Model\ToneAnalysis;
 
 /**
  * Analyze general tone.
@@ -49,10 +50,23 @@ class Tone extends AbstractApi
     private $contentType;
 
     /**
+     * @return \IBM\Watson\Common\Api\AbstractApi|void
+     */
+    protected function setAllowedParams()
+    {
+        $this->allowedParams = [
+            'text',
+            'sentences',
+            'content_language',
+            'accept_language'
+        ];
+    }
+
+    /**
      * @param string $text
      * @param array  $params
      *
-     * @return mixed
+     * @return ToneAnalysis
      *
      * @throws \Http\Client\Exception
      * @throws \IBM\Watson\Common\Exception\Domain\InsufficientPrivilegesException
@@ -84,13 +98,13 @@ class Tone extends AbstractApi
             $this->handleErrors($response);
         }
 
-        return $this->hydrator->hydrate($response);
+        return $this->hydrator->hydrate($response, ToneAnalysis::class);
     }
 
     /**
      * Is supplied text html?
      *
-     * @param bool $flag
+     * @param boolean $flag
      *
      * @return $this
      */
