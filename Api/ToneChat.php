@@ -43,7 +43,8 @@ class ToneChat extends AbstractApi
      * @param array $utterances
      * @param array $params
      *
-     * @return mixed
+     * @return \IBM\Watson\ToneAnalyzer\Model\UtteranceAnalysis
+     *
      * @throws \Http\Client\Exception
      * @throws \IBM\Watson\Common\Exception\Api\BadRequestException
      * @throws \IBM\Watson\Common\Exception\Domain\InsufficientPrivilegesException

@@ -1,0 +1,47 @@
+{
+  "name": "adam-paterson/watson-tone-analyzer",
+  "version": "1.0.0",
+  "description": "IBM Watson Tone Analyzer",
+  "homepage": "https://github.com/adam-paterson/watson-tone-analyzer",
+  "support": {
+    "issues": "https://github.com/adam-paterson/watson-tone-analyzer/issues",
+    "source": "https://github.com/adam-paterson/watson-tone-analyzer"
+  },
+  "keywords": [
+    "IBM Watson SDK",
+    "Machine Learning",
+    "Artificial Intelligence",
+    "AI",
+    "ML",
+    "Tone analyzer"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Adam Paterson",
+      "email": "hello@adampaterson.co.uk",
+      "homepage": "https://adampaterson.co.uk"
+    }
+  ],
+  "require": {
+    "php": "~5.6|~7.0",
+    "ext-json": "*",
+    "adam-paterson/watson-common": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "IBM\\Watson\\ToneAnalyzer": ""
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
