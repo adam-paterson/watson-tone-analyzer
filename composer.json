@@ -31,7 +31,7 @@
   },
   "autoload": {
     "psr-4": {
-      "IBM\\Watson\\ToneAnalyzer": ""
+      "IBM\\Watson\\ToneAnalyzer\\": ""
     }
   },
   "extra": {
